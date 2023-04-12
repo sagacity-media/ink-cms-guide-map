@@ -3,8 +3,21 @@ import "regenerator-runtime/runtime";
 import { Controller } from "@hotwired/stimulus";
 import { useIntersection, useMatchMedia } from "stimulus-use";
 
+const scrollIntoViewWithOffset = (element, offset = 0) => {
+  window.scrollTo({
+    behavior: "smooth",
+    top:
+      element.getBoundingClientRect().top -
+      document.body.getBoundingClientRect().top -
+      offset,
+  });
+};
+
+
 export default class extends Controller {
   static targets = ["map", "listing"];
+
+  // TODO: Observe map height changes and add an offset to scrollIntoView
 
 
   // Only fires on initial load, for some reason
@@ -33,6 +46,17 @@ export default class extends Controller {
   }
 
   async connect() {
+    this.mapHeight = this.mapTarget.offsetHeight;
+
+    this.imageResizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        if (entry.contentBoxSize) {
+          this.mapHeight = entry.contentBoxSize[0].blockSize;
+        }
+      }
+    })
+    this.imageResizeObserver.observe(this.mapTarget);
+
     useMatchMedia(this, {
       mediaQueries: {
         small: "(max-width: 45rem)",
@@ -81,7 +105,8 @@ export default class extends Controller {
       annotation.addEventListener('select', (e) =>  {
         if (e.target.enabled) {
           // If the selection was made by user interaction
-          element.scrollIntoView({ behavior: "smooth" });
+          // element.scrollIntoView({ behavior: "smooth" });
+          scrollIntoViewWithOffset(element, this.mapHeight);
         } else {
           // If the selection was made by scrolling to a listing
           e.target.enabled = true;
