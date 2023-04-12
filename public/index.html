@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="reset.css">
+  <link rel="stylesheet" href="main.css">
+  <script src="bundle.js" async></script>
+
+  <meta name="viewport" content="height=device-height,width=device-width,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0,user-scalable=no">
+
+  <template id="listing-template">
+    <div class="listing">
+      <div class="listing-image">
+        <img src="https://picsum.photos/600/400" alt="Listing Image">
+      </div>
+      <div class="listing-header">
+        <h2 data-title-target="title">Listing Title</h2>
+        <div class="listing-details">
+          Listing Details
+        </div>
+      </div>
+      <div class="listing-body">
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi egestas, sem et tincidunt venenatis, orci sapien
+        convallis nisl, quis tincidunt magna diam sed nisl. Aenean et porta orci, tempus pellentesque felis. Sed ultricies
+        placerat diam vitae tristique. Nulla cursus blandit felis sed scelerisque. Vivamus non odio ante. Sed sagittis neque sit
+        amet tellus venenatis, quis egestas purus mattis. Phasellus consectetur odio eget fermentum laoreet. Suspendisse
+        potenti. Ut id neque vitae justo tempor ornare vel sed augue. Pellentesque malesuada varius dui ut elementum. Sed massa
+        tortor, rutrum eget maximus vitae, tincidunt ac turpis. Sed gravida tellus felis. Sed tristique lobortis justo, id
+        tincidunt urna maximus sit amet. Nam tempus nibh magna, eget mollis nunc rutrum elementum.</p>
+      </div>
+    </div>
+  </template>
+
+  <!-- <script>
+    (g => { var h, a, k, p = "The Google Maps JavaScript API", c = "google", l = "importLibrary", q = "__ib__", m = document, b = window; b = b[c] || (b[c] = {}); var d = b.maps || (b.maps = {}), r = new Set, e = new URLSearchParams, u = () => h || (h = new Promise(async (f, n) => { await (a = m.createElement("script")); e.set("libraries", [...r] + ""); for (k in g) e.set(k.replace(/[A-Z]/g, t => "_" + t[0].toLowerCase()), g[k]); e.set("callback", c + ".maps." + q); a.src = `https://maps.${c}apis.com/maps/api/js?` + e; d[q] = f; a.onerror = () => h = n(Error(p + " could not load.")); a.nonce = m.querySelector("script[nonce]")?.nonce || ""; m.head.append(a) })); d[l] ? console.warn(p + " only loads once. Ignoring:", g) : d[l] = (f, ...n) => r.add(f) && u().then(() => d[l](f, ...n)) })({
+      key: "AIzaSyBh9zzf6RlRDZnWybERu0niq-NdDph9S6M",
+      // Add other bootstrap parameters as needed, using camel case.
+      // Use the 'v' parameter to indicate the version to load (alpha, beta, weekly, etc.)
+    });
+  </script> -->
+  <script src="https://cdn.apple-mapkit.com/mk/5.x.x/mapkit.core.js" crossorigin async data-callback="initMapKit"
+    data-libraries="map,annotations"
+    data-initial-token="eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Iko1RlpZMjhRR00ifQ.eyJpc3MiOiI0TVQ5SEZWTjhFIiwiaWF0IjoxNjgxMzI1ODk2LCJleHAiOjE3MTI4ODAwMDB9.CioSplbh1y9kBLZ-WV-krgeEkz9pj40KrNsTXxX-UE3UupzNCNQp4AfqmXeeSFwvoHj8jMfDvGX0nmhwilFOSQ"></script>
+</head>
+<body>
+  <div class="container">
+  
+    <div class="tk-article-layout" data-controller="map">
+      <div class="tk-article-header placeholder" data-title="Article Header"></div>
+      <div class="tk-article-map">
+        <div data-map-target="map" id="map"></div>
+      </div>
+      <div class="tk-article-body">
+        <div id="cutters-crabhouse" data-controller="template" data-title="Cutters Crabhouse" data-map-target="listing" data-lat="47.6105803" data-lng="-122.348983"></div>
+        <div id="cloudburst-brewing" data-controller="template" data-title="Cloudburst Brewing" data-map-target="listing" data-lat="47.6116921" data-lng="-122.3451513"></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
