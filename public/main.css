@@ -99,11 +99,12 @@ body {
 }
 
 .listing img {
-  max-width: 100vw;
+  max-width: 100%;
+  /* max-width: 100vw; */
   height: auto;
-  margin-right: calc(50% - 50vw);
+  /* margin-right: calc(50% - 50vw);
   margin-left: calc(50% - 50vw);
-  transform: translateX(calc(50vw - 50%));
+  transform: translateX(calc(50vw - 50%)); */
 }
 
 .listing-image {
@@ -142,9 +143,9 @@ body {
     max-height: none;
   }
 
-  .listing img {
+  /* .listing img {
     max-width: 100%;
-  }
+  } */
 }
 
 #map {
