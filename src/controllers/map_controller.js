@@ -2,7 +2,7 @@ import "regenerator-runtime/runtime";
 
 import { Controller } from "@hotwired/stimulus";
 import { initializeMapkit } from "../mapkit";
-import { scrollIntoViewWithOffset, getCSSVariable } from "./utilities";
+import { getCSSVariable } from "./utilities";
 
 export default class extends Controller {
   static targets = ["map", "listing"];
@@ -57,6 +57,7 @@ export default class extends Controller {
       for (const entry of entries) {
         if (entry.contentBoxSize) {
           this.mapHeight = entry.contentBoxSize[0].blockSize;
+          this.element.style.setProperty('--map-height', `${this.mapHeight}px`);
         }
       }
     });
@@ -121,10 +122,9 @@ export default class extends Controller {
     });
 
     annotation.addEventListener("select", (e) => {
-      if (e.target.enabled && this.isMobile) {
-        scrollIntoViewWithOffset(element, this.mapHeight);
-      } else if (e.target.enabled) {
-        scrollIntoViewWithOffset(element);
+      history.replaceState({}, document.title, '#' + e.target.data.elementId);
+      if (e.target.enabled) {
+        element.scrollIntoView({ behavior: 'smooth' });
       } else {
         e.target.enabled = true;
       }
