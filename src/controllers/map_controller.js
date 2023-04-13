@@ -89,6 +89,8 @@ export default class extends Controller {
         mapkit.PointOfInterestCategory.School,
       ]),
       showsMapTypeControl: false,
+      showsZoomControl: false,
+      showsScale: false
     });
 
     // this.map.addEventListener('select', (e) => {
@@ -123,7 +125,12 @@ export default class extends Controller {
       this.listings.push(annotation);
       element.dataset.listingIndex = index;
 
-      useIntersection(this, { element, rootMargin: "-25% 0px -25% 0px" });
+      useIntersection(this, { element, rootMargin: "-40% 0px -60% 0px" });
+    });
+
+    this.map.addEventListener("single-tap", (e) => {
+      const test = this.map.convertPointOnPageToCoordinate(e.pointOnPage);
+      console.log("map click", test);
     });
 
     this.updateListings();
@@ -140,9 +147,10 @@ export default class extends Controller {
   // When a listing is scrolled into view
   appear(e) {
     const annotation = this.listings[e.target.dataset.listingIndex];
+
     annotation.enabled = false;
     annotation.selected = true;
-    annotation.title = e.target.dataset.title;
+    // annotation.title = e.target.dataset.title;
   }
 
   // When a listing is scrolled out of view
@@ -151,6 +159,6 @@ export default class extends Controller {
 
     annotation.enabled = true;
     annotation.selected = false;
-    annotation.title = null;
+    // annotation.title = null;
   }
 }
