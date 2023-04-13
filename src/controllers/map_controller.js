@@ -37,7 +37,7 @@ export default class extends Controller {
     if (this.isSmallAttr) {
       return { top: 50, right: 50, bottom: 50, left: 50 };
     } else {
-      return { top: 100, right: 200, bottom: 100, left: 200 };
+      return { top: 100, right: 100, bottom: 100, left: 100 };
     }
   }
 
@@ -112,14 +112,19 @@ export default class extends Controller {
         if (e.target.enabled) {
           // If the selection was made by user interaction
           // element.scrollIntoView({ behavior: "smooth" });
-          scrollIntoViewWithOffset(element, this.mapHeight);
+          if (this.isSmallAttr) {
+            scrollIntoViewWithOffset(element, this.mapHeight);
+          } else {
+            scrollIntoViewWithOffset(element);
+          }
         } else {
           // If the selection was made by scrolling to a listing
           e.target.enabled = true;
         }
 
         console.log("zoom on select?", this.zoomOnSelect);
-        if (this.zoomOnSelect) this.map.setCenterAnimated(e.target.coordinate);
+        // if (this.zoomOnSelect) this.map.setCenterAnimated(e.target.coordinate);
+        this.map.setCenterAnimated(e.target.coordinate);
       });
 
       this.listings.push(annotation);
